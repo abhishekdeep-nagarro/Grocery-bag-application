@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Update List
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1>Update Grocery List</h1>
+    <form method="post" action="{% url 'update-list' id=grocery.id %}">
+        {% csrf_token %}
+        <div class="form-group">
+            <label class="form-label">Name</label>
+            <input type="text" id="name" class="form-control" name="name" value="{{grocery.name}}"/>
+        </div>
+        <div class="form-group">
+            <label>Item quantity</label>
+            <input type="text" id="quantity" name="quantity" class="form-control" value="{{grocery.quantity}}"/>
+        </div>
+        <div class="form-group">
+            <label>Item status</label>
+            <select class="form-control" id="status" name="status" value="{{grocery.status}}">
+                <option value="PENDING">PENDING</option>
+                <option value="BOUGHT">BOUGHT</option>
+                <option value="NOT AVAILABLE">NOT AVAILABLE</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Date</label>
+            <input type="date" id="date" name="date" class="form-control" value="{{grocery.date|date:"Y-m-d"}}">
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Add" class="btn btn-danger">
+        </div>
+    </form>
+</div>
+{% endblock %}
+   

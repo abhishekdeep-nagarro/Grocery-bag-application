@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    View List
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <!-- top -->
+    <div class="row">
+        <div class="col-lg-6">
+            <h1>View Grocery List</h1>
+            <ul class="navbar-nav" style="float: left; text-decoration: none; padding: 5px; list-style-type: none;">
+                <li class="nav-item">
+                  <a class="nav-link" href="/add">Add Item</a>
+                </li>
+              </ul>
+        </div>
+        <div class="col-lg-6 float-right">
+            <form action="/" method="POST">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-lg-8">
+                        <!-- Date Filtering-->
+                        <input type="date" class="form-control" required name="date" value="{{grocery.date|date:"Y-m-d"}}">
+                    </div>
+                    <div class="col-lg-4">
+                        <input type="submit" class="btn btn-danger" value="filter">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- // top -->
+    <!-- Grocery Cards -->
+    <div class="row mt-4">
+        <div class="col-lg-4">
+            {% if groceries|length == 0 %}
+                <div class="p-4">
+                    <br>
+                    <br>
+                    <div class="alert alert-info text-center">
+                        <p class="" style="font-size: 30px;">No Grocery</p>
+                    </div>
+                    <br>
+                    <br>
+                </div>
+            {% else %}
+            <div class="card">
+                <div class="card-body">
+                    {% for grocery in groceries %}
+                  <h5 class="card-title">{{grocery.name}}</h5>
+                  <h6 class="card-subtitle mb-2 text-muted">{{grocery.quantity}}</h6>
+                  <p class="text-success">{{grocery.status}}</p>
+                  <p><a href="/update-list/{{grocery.id}}">Update</a>&nbsp&nbsp<a href="/delete-list/{{grocery.id}}" title="Delete" class="">delete</a><p>
+                    {% endfor %}
+                </div>
+                
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

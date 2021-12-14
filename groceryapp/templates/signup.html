@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Signup
+{% endblock %}
+
+{% block content %}
+    {% comment %} form.as_ul - by using this form will come under list {% endcomment %}
+  <div class="container pt-4">
+    <div class="col-lg-5 shadow p-0 mx-auto mt-4">
+      <div class="alert alert-success">
+        <h2>Create Account</h2>
+      </div>
+      <div class="p-4">
+        <form action="/Signup" method="post">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <hr>
+          <input class="btn btn-success" type="submit" value="Create Account">
+        </form>
+      </div>
+    </div> 
+  </div>
+{% endblock  %}
